@@ -2,8 +2,10 @@ const express= require('express');
 const cors=require('cors');
 const app=express();
 require('dotenv').config();
+const connectDB=require('./Config/connectDB');
+const router=require('./routes/index');
 
-
+app.use(express.json());
 app.use(cors({
     origin:process.env.frontend_url,
     credentials:true
@@ -15,11 +17,17 @@ app.get('/',(req,res)=>{
     res.send("hello");
 });
 
-app.listen(PORT,(err)=>{
-    if(!err){
-        console.log("server run on port ",PORT);
-    }
-    else{
-        console.log("errors",err);
-    }
+//api endpoint
+app.use("/api",router);
+
+
+connectDB().then(()=>{
+    app.listen(PORT,(err)=>{
+        if(!err){
+            console.log("server run on port ",PORT);
+        }
+        else{
+            console.log("errors",err);
+        }
+    })
 })
