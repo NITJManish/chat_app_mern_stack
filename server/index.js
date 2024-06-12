@@ -15,9 +15,9 @@ app.use(cors({
 
 const PORT=process.env.PORT || 8080
 
-app.get('/',(req,res)=>{
-    res.send("hello");
-});
+// app.get('/',(req,res)=>{
+//     res.send("hello");
+// });
 
 //api endpoint
 app.use("/api",router);
